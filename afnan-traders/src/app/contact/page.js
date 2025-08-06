@@ -79,34 +79,56 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Contact Us
+      {/* Hero Section with Background Image */}
+      <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 py-24 overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1920&h=800&fit=crop&crop=center"
+            alt="Contact us background"
+            fill
+            className="object-cover opacity-20"
+            priority
+          />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center text-white">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              Let's Connect
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl max-w-3xl mx-auto opacity-90">
               Get in touch with our experts to discuss your life science equipment needs. 
-              We're here to provide you with the best solutions.
+              We're here to provide you with the best solutions tailored to your requirements.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Contact Information */}
+      {/* Enhanced Contact Information */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Get in Touch
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Multiple ways to reach us for all your inquiries and support needs
+            </p>
+          </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {contactInfo.map((info, index) => (
-              <div key={index} className="text-center p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition duration-300">
-                <div className="mb-4 flex justify-center">
-                  {info.icon}
+              <div key={index} className="group text-center p-8 bg-gray-50 rounded-2xl hover:bg-white hover:shadow-xl transition duration-500 transform hover:-translate-y-2">
+                <div className="mb-6 flex justify-center">
+                  <div className="p-4 bg-blue-100 rounded-full group-hover:bg-blue-600 transition duration-300">
+                    <div className="text-blue-600 group-hover:text-white transition duration-300">
+                      {info.icon}
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   {info.title}
                 </h3>
-                <div className="space-y-1 mb-2">
+                <div className="space-y-2 mb-3">
                   {info.details.map((detail, detailIndex) => (
                     <p key={detailIndex} className="text-gray-700 font-medium">
                       {detail}
