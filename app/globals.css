@@ -1,56 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 @import 'tailwindcss';
 
 :root {
+  --primary: #00A8E8;
+  --secondary: #3340A0;
+  --accent: #F2D16B;
+  --navy: #1a1a2e;
+  --bg-soft: #F8FCFF;
   --background: #ffffff;
-  --foreground: #ededed;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #ffffff;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: #ffffff;
+  color: #1a1a2e;
   font-family: 'Plus Jakarta Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-section {
-  padding: 4rem 0;
-}
-@media (min-width: 576px) {
-  section {
-    padding: 5rem 0;
-  }
-}
-@media (min-width: 768px) {
-  section {
-    padding: 6rem 0;
-  }
-}
-@media (min-width: 992px) {
-  section {
-    padding: 7rem 0;
-  }
-}
-@media (min-width: 1200px) {
-  section {
-    padding: 7.5rem 0;
-  }
-}
-
-/* Ensure smooth image transitions */
-.bg-cover {
-  background-size: cover;
-  background-position: center;
-  transition: opacity 1s ease-in-out;
+/* Thin gold separator utility */
+.sep-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #F2D16B60, transparent);
 }

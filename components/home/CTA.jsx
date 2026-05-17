@@ -1,109 +1,57 @@
 'use client';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { ChevronRight } from 'lucide-react';
+import TaperedLine from '@/components/ui/TaperedLine';
+import { cn } from '@/lib/utils';
+import { buttonVariants } from '@/components/ui/button';
 
-export default function CTASection() {
-  const textVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' },
-    },
-  };
-
-  const buttonVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.5, delay: 0.3, ease: 'easeOut' },
-    },
-    hover: {
-      scale: 1.05,
-      transition: { duration: 0.2 },
-    },
-    tap: {
-      scale: 0.95,
-    },
-  };
-
-  const scrollToContact = (e) => {
-    e.preventDefault();
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-    }
-  };
-
+export default function CTA() {
   return (
-    <div className='py-24'>
-      <div className='px-5 sm:px-10 md:px-12 lg:px-5 max-w-7xl mx-auto'>
-        <div className='w-full relative py-8 md:py-10 px-4 md:px-8 rounded-2xl bg-gradient-to-tr from-blue-50 to-blue-100 overflow-hidden'>
-          <div className='absolute right-0 top-0 h-full w-full flex justify-end'>
-            <div className='w-28 h-28 overflow-hidden flex rounded-xl relative blur-2xl'>
-              <span className='absolute w-16 h-16 -top-1 -right-1 bg-blue-500 rounded-md rotate-45'></span>
-              <span className='absolute w-16 h-16 -bottom-1 -right-1 bg-blue-400 rounded-md rotate-45'></span>
-              <span className='absolute w-16 h-16 -bottom-1 -left-1 bg-blue-300 rounded-md rotate-45'></span>
+    <section className="py-16 lg:py-20 bg-[#F8FCFF] border-t border-gray-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="relative bg-[#1a1a2e] rounded-xl px-8 py-12 lg:px-14 lg:py-14 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 overflow-hidden"
+        >
+          {/* Subtle top gold accent */}
+          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#F2D16B]/60 to-transparent" />
+
+          {/* Text */}
+          <div className="max-w-xl">
+            <div className="flex items-center gap-2 mb-4">
+              <TaperedLine color="#F2D16B" />
+              <span className="text-[11px] font-bold text-[#F2D16B]/80 uppercase tracking-widest">Partner with Us</span>
             </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight mb-3">
+              Ready to Elevate Your<br />Research Capabilities?
+            </h2>
+            <p className="text-[15px] text-white/50 leading-relaxed">
+              Connect with our expert team and discover tailored solutions for your institution's
+              unique requirements. We respond within 24 hours.
+            </p>
           </div>
 
-          <div className='absolute left-0 bottom-0 h-full w-full flex items-end'>
-            <div className='w-28 h-28 overflow-hidden flex rounded-xl relative blur-2xl'>
-              <span className='absolute w-16 h-16 -top-1 -right-1 bg-blue-500 rounded-md rotate-45'></span>
-              <span className='absolute w-16 h-16 -bottom-1 -right-1 bg-blue-400 rounded-md rotate-45'></span>
-              <span className='absolute w-16 h-16 -bottom-1 -left-1 bg-blue-300 rounded-md rotate-45'></span>
-            </div>
-          </div>
-
-          <div className='mx-auto text-center max-w-xl md:max-w-2xl relative space-y-6'>
-            <motion.h1
-              className='font-bold text-3xl sm:text-4xl md:text-5xl text-blue-950 leading-tight '
-              variants={textVariants}
-              initial='hidden'
-              whileInView='visible'
-              viewport={{ once: true }}
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 flex-shrink-0">
+            <Link
+              href="/contact"
+              className={cn(buttonVariants({ variant: 'accent', size: 'lg' }), 'gap-1.5')}
             >
-              Quick Start your Strategic Partnership
-            </motion.h1>
-
-            <motion.p
-              className='text-gray-800 text-lg'
-              variants={textVariants}
-              initial='hidden'
-              whileInView='visible'
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
+              Get in Touch <ChevronRight size={16} />
+            </Link>
+            <Link
+              href="/services"
+              className="h-12 px-7 rounded-lg text-[15px] inline-flex items-center justify-center font-semibold text-white bg-white/10 border border-white/15 hover:bg-white/18 transition-colors duration-200"
             >
-              Providing cutting-edge medical, diagnostic, and analytical
-              equipment to research institutions across Pakistan.
-            </motion.p>
-
-            <div className='mx-auto max-w-md sm:max-w-xl flex justify-center'>
-              <motion.div
-                variants={buttonVariants}
-                initial='hidden'
-                whileInView='visible'
-                whileHover='hover'
-                whileTap='tap'
-                viewport={{ once: true }}
-              >
-                <Link
-                  href='#'
-                  onClick={scrollToContact}
-                  className='outline-none px-5 py-2 rounded-3xl bg-blue-900 text-white flex items-center overflow-hidden w-max relative group'
-                >
-                  <span className='relative z-10'>Contact Us</span>
-                  <span className='absolute inset-0 w-full h-full bg-blue-900 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl'></span>
-                </Link>
-              </motion.div>
-            </div>
+              Our Services
+            </Link>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
 }

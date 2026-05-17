@@ -1,173 +1,127 @@
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
+import { Building2, Phone, Mail, ArrowUpRight } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
 
-const footerData = {
-  company: {
-    name: 'Afnan Traders',
-    description:
-      'Delivering reliable and innovative life science solutions since 2006.',
-  },
-  links: [
-    { name: 'Home', href: '/' },
-    { name: 'About Us', href: '/' },
-    { name: 'Services', href: '/' },
-    { name: 'Contact', href: '/' },
-  ],
-  services: [
-    'Medical Equipment',
-    'Diagnostic Solutions',
-    'Laboratory Instruments',
-    'Research Support',
-  ],
-  contact: [
-    {
-      label: 'Address',
-      text: 'Office # 16 ,1st Floor, NBC Plaza, Shamsabad Murree Rd, Rwp',
-    },
-    { label: 'Phone', text: '+92 300 5209127' },
-    { label: 'Email', text: 'contact@afnantraders.com' },
-  ],
-};
+const quickLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Services', href: '/services' },
+  { label: 'Products', href: '/products' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const partners = [
+  { name: 'Macrogen', country: 'South Korea' },
+  { name: 'PhytoTech Labs', country: 'USA' },
+  { name: 'Thermo Fisher Scientific', country: 'USA' },
+  { name: 'Thistle Scientific', country: 'UK' },
+];
 
 export default function Footer() {
   return (
-    <footer className='relative bg-gray-50 text-gray-800 border-t border-gray-100 overflow-hidden'>
-      <div className='absolute inset-0 opacity-10 pointer-events-none'>
-        <svg width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'>
-          <defs>
-            <pattern
-              id='abstract-lines'
-              x='0'
-              y='0'
-              width='40'
-              height='40'
-              patternUnits='userSpaceOnUse'
-            >
-              <path
-                d='M-5,5 L15,25'
-                stroke='#0891b2'
-                strokeWidth='0.5'
-                opacity='2'
-              />
-              <path
-                d='M10,0 L30,20'
-                stroke='#3b82f6'
-                strokeWidth='0.5'
-                opacity='2'
-              />
-              <path
-                d='M0,10 L20,30'
-                stroke='#0891b2'
-                strokeWidth='0.4'
-                opacity='3'
-              />
-              <path
-                d='M20,10 L35,-5'
-                stroke='#3b82f6'
-                strokeWidth='0.6'
-                opacity='2'
-              />
-              <path
-                d='M5,30 L25,45'
-                stroke='#0891b2'
-                strokeWidth='0.5'
-                opacity='4'
-              />
-            </pattern>
-          </defs>
-          <rect width='100%' height='100%' fill='url(#abstract-lines)' />
-        </svg>
-      </div>
+    <footer className="bg-white border-t border-gray-100">
+      {/* Gold accent line */}
+      <div className="sep-gold" />
 
-      <div className='relative max-w-7xl mx-auto px-8 lg:px-12 py-8 mt-10'>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10'>
-          <div className='space-y-5'>
-            <div className='flex items-center space-x-3'>
-              <div className='flex items-center min-w-max'>
-                <a href='#' className='text-2xl font-semibold text-blue-950'>
-                  AFNAN{' '}
-                  <span className='relative after:absolute after:inset-0 after:rotate-3 after:border after:border-yellow-600 text-yellow-600'>
-                    Traders
-                  </span>
+      {/* Main grid */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+          {/* Brand column */}
+          <div className="space-y-5 lg:col-span-1">
+            <Link href="/" aria-label="Afnan Traders Home">
+              <div className="relative flex items-center">
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-[#00A8E8] to-[#3340A0] opacity-85" />
+                <div className="relative w-[340px] h-18">
+                  <Image
+                    src="/afnan-traders_logo.png"
+                    alt="Afnan Traders"
+                    fill
+                    className="object-contain object-left"
+                  />
+                </div>
+              </div>
+            </Link>
+            <p className="text-sm text-gray-500 leading-relaxed">
+              Pakistan's trusted life science solutions provider since 2006. Serving hospitals,
+              research institutions, and laboratories nationwide.
+            </p>
+            <div className="flex items-center gap-2 text-[11px] text-gray-400 uppercase tracking-widest font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#00A8E8]" />
+              Est. 2006 · Pakistan
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h4 className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-5">Navigation</h4>
+            <nav className="space-y-2.5">
+              {quickLinks.map((l) => (
+                <Link
+                  key={l.label}
+                  href={l.href}
+                  className="group flex items-center gap-1.5 text-sm text-gray-500 hover:text-[#00A8E8] transition-colors duration-200"
+                >
+                  {l.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Partners */}
+          <div>
+            <h4 className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-5">Distribution Partners</h4>
+            <div className="space-y-3">
+              {partners.map((p) => (
+                <div key={p.name} className="flex items-start gap-2">
+                  {/* <span className="w-1 h-1 rounded-full bg-[#00A8E8]/50 mt-1.5 flex-shrink-0" /> */}
+                  <div>
+                    <div className="text-sm font-medium text-gray-500">{p.name}</div>
+                    {/* <div className="text-[11px] text-gray-400">{p.country}</div> */}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-5">Contact Us</h4>
+            <div className="space-y-3.5">
+              <div className="flex items-start gap-3">
+                <Building2 size={14} className="text-[#00A8E8] mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-gray-500 leading-snug">
+                  National Business Center, Rawalpindi
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Phone size={14} className="text-[#00A8E8] flex-shrink-0" />
+                <a href="tel:+923005209127" className="text-sm text-gray-500 hover:text-[#00A8E8] transition-colors">
+                  +92 300 5209127
+                </a>
+              </div>
+              <div className="flex items-center gap-3">
+                <Mail size={14} className="text-[#00A8E8] flex-shrink-0" />
+                <a href="mailto:info@afnantraders.com" className="text-sm text-gray-500 hover:text-[#00A8E8] transition-colors">
+                  info@afnantraders.com
                 </a>
               </div>
             </div>
-            <p className='text-gray-600 leading-relaxed text-sm'>
-              {footerData.company.description}
-            </p>
-          </div>
-
-          <div>
-            <h4 className='text-base font-semibold text-blue-950 mb-5 tracking-wide'>
-              Quick Links
-            </h4>
-            <nav className='space-y-3'>
-              {footerData.links.map((item, index) => (
-                <div key={index} className='group'>
-                  <Link
-                    href={item.href}
-                    className='inline-flex items-center text-gray-600 hover:text-blue-700 transition-all duration-200 text-sm'
-                  >
-                    <span>{item.name}</span>
-                    <span className='ml-1 transform translate-x-0 opacity-0 group-hover:translate-x-1 group-hover:opacity-100 transition-all duration-200'>
-                      <ArrowUpRight className='w-4 h-4' />
-                    </span>
-                  </Link>
-                </div>
-              ))}
-            </nav>
-          </div>
-
-          <div>
-            <h4 className='text-base font-semibold text-blue-950 mb-5 tracking-wide'>
-              Our Services
-            </h4>
-            <nav className='space-y-3'>
-              {footerData.services.map((service, index) => (
-                <div key={index} className='group'>
-                  <span className='inline-flex items-center text-gray-600 hover:text-blue-700 transition-all duration-200 text-sm cursor-default select-none'>
-                    {service}
-                    <span className='ml-1 transform translate-x-0 opacity-0 group-hover:translate-x-1 group-hover:opacity-100 transition-all duration-200'>
-                      <ArrowUpRight className='w-4 h-4' />
-                    </span>
-                  </span>
-                </div>
-              ))}
-            </nav>
-          </div>
-
-          <div>
-            <h4 className='text-base font-semibold text-blue-950 mb-5 tracking-wide'>
-              Contact Us
-            </h4>
-            <div className='space-y-4 text-sm'>
-              {footerData.contact.map((item, index) => (
-                <div key={index} className='group'>
-                  <p className='text-gray-600 leading-tight'>
-                    <span className='font-medium text-blue-950'>
-                      {item.label}:
-                    </span>{' '}
-                    <span className='text-gray-700'>{item.text}</span>
-                  </p>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
+      </div>
 
-        <div className='border-t border-gray-200 mt-10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm'>
-          <p className='text-gray-500'>
-            &copy; {new Date().getFullYear()} Afnan Traders
-          </p>
-          <div className='mt-4 md:mt-0 text-gray-400'>
-            Developed by{' '}
-            <Link
-              href='https://devprimo.com/'
-              className='text-gray-400 hover:text-blue-500 text-sm transition-colors'
-            >
-              DevPrimo
-            </Link>
-          </div>
+      {/* Bottom bar */}
+      <Separator />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p className="text-xs text-gray-400">
+          © {new Date().getFullYear()} Afnan Traders. All rights reserved.
+        </p>
+        <div className="flex items-center gap-5 text-xs text-gray-400">
+          <a href="https://devprimo.com/" target="_blank" rel="noopener noreferrer" className="hover:text-[#00A8E8] transition-colors">
+            Developed by DevPrimo
+          </a>
         </div>
       </div>
     </footer>
