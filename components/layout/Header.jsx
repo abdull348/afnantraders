@@ -21,7 +21,7 @@ export default function Header() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 16);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -29,12 +29,15 @@ export default function Header() {
   return (
     <header
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl transition-all duration-300',
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
         scrolled
-          ? 'shadow-[0_1px_16px_rgba(0,0,0,0.09)]'
-          : 'border-b border-gray-100'
+          ? 'bg-white/97 backdrop-blur-2xl shadow-[0_1px_0_rgba(0,0,0,0.05),0_6px_28px_rgba(0,0,0,0.07)]'
+          : 'bg-white/85 backdrop-blur-xl border-b border-gray-100/70'
       )}
     >
+      {/* Premium gold accent line at very top */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#F2D16B]/55 to-transparent" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           className={cn(
@@ -42,25 +45,26 @@ export default function Header() {
             scrolled ? 'h-14' : 'h-[4.5rem]'
           )}
         >
-          {/* Logo */}
-          <Link href="/" className="flex items-center group" aria-label="Afnan Traders Home">
-            <div className="relative flex items-center">
-              {/* Soft gradient circle behind the logomark for white-on-white visibility */}
-              <div className="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-[#00A8E8] to-[#3340A0] opacity-85 group-hover:opacity-100 transition-opacity duration-200" />
-              <div className="relative w-[300px] h-[52px]">
-                <Image
-                  src="/afnan-traders_logo.png"
-                  alt="Afnan Traders"
-                  fill
-                  className="object-contain object-left"
-                  priority
-                />
-              </div>
+          {/* Logo — clean, no background gimmick */}
+          <Link href="/" className="flex items-center shrink-0 group" aria-label="Afnan Traders Home">
+            <div
+              className={cn(
+                'relative transition-all duration-300',
+                scrolled ? 'w-[180px] h-[38px]' : 'w-[210px] h-[44px]'
+              )}
+            >
+              <Image
+                src="/afnan-traders_logo.png"
+                alt="Afnan Traders"
+                fill
+                className="object-contain object-left group-hover:opacity-90 transition-opacity duration-200"
+                priority
+              />
             </div>
           </Link>
 
-          {/* Desktop nav — absolutely centered in header */}
-          <nav className="hidden lg:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
+          {/* Desktop nav — absolutely centered */}
+          <nav className="hidden lg:flex items-center gap-0.5 absolute left-1/2 -translate-x-1/2">
             {navLinks.map((link) => {
               const active = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
               return (
@@ -68,16 +72,16 @@ export default function Header() {
                   key={link.label}
                   href={link.href}
                   className={cn(
-                    'relative px-3.5 py-2 text-sm font-medium rounded-lg transition-colors duration-200',
+                    'relative px-4 py-2.5 text-[13.5px] font-medium rounded-lg transition-all duration-200',
                     active
-                      ? 'text-[#1a1a2e]'
-                      : 'text-gray-500 hover:text-[#1a1a2e] hover:bg-gray-50'
+                      ? 'text-[#1a1a2e] font-semibold'
+                      : 'text-gray-500 hover:text-[#1a1a2e] hover:bg-gray-50/80'
                   )}
                 >
                   {active && (
                     <motion.span
                       layoutId="nav-underline"
-                      className="absolute bottom-0.5 left-3.5 right-3.5 h-0.5 bg-[#F2D16B] rounded-full"
+                      className="absolute bottom-1 left-4 right-4 h-[2px] bg-[#F2D16B] rounded-full"
                       transition={{ type: 'spring', bounce: 0.2, duration: 0.4 }}
                     />
                   )}
@@ -87,10 +91,13 @@ export default function Header() {
             })}
           </nav>
 
-          {/* CTA */}
+          {/* Desktop CTA */}
           <Link
             href="/contact"
-            className={cn(buttonVariants({ size: 'sm' }), 'hidden lg:flex rounded-lg px-4')}
+            className={cn(
+              buttonVariants({ size: 'sm' }),
+              'hidden lg:flex rounded-lg px-5 shadow-sm shadow-[#00A8E8]/15 hover:shadow-[0_4px_14px_rgba(0,168,232,0.28)] transition-shadow duration-200'
+            )}
           >
             Get in Touch
           </Link>
@@ -101,7 +108,29 @@ export default function Header() {
             className="lg:hidden p-2 text-gray-500 hover:text-[#1a1a2e] hover:bg-gray-100 rounded-lg transition-colors"
             aria-label="Toggle navigation"
           >
-            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            <AnimatePresence mode="wait" initial={false}>
+              {mobileOpen ? (
+                <motion.div
+                  key="x"
+                  initial={{ rotate: -45, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 45, opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  <X size={20} />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: 45, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -45, opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  <Menu size={20} />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </button>
         </div>
       </div>
@@ -113,29 +142,40 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.22 }}
-            className="lg:hidden overflow-hidden border-t border-gray-100 bg-white/98 backdrop-blur-xl"
+            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:hidden overflow-hidden border-t border-gray-100 bg-white/98 backdrop-blur-2xl"
           >
-            <div className="px-4 py-3 space-y-1">
-              {navLinks.map((link) => {
+            <div className="px-4 py-4 space-y-1">
+              {navLinks.map((link, i) => {
                 const active = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
                 return (
-                  <Link
+                  <motion.div
                     key={link.label}
-                    href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className={cn(
-                      'flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-colors',
-                      active
-                        ? 'text-[#1a1a2e] bg-[#F2D16B]/12 font-semibold border-l-2 border-[#F2D16B]'
-                        : 'text-gray-600 hover:text-[#1a1a2e] hover:bg-gray-50'
-                    )}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05, duration: 0.18 }}
                   >
-                    {link.label}
-                  </Link>
+                    <Link
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className={cn(
+                        'flex items-center px-3.5 py-2.5 text-sm font-medium rounded-lg transition-colors',
+                        active
+                          ? 'text-[#1a1a2e] bg-[#F2D16B]/10 font-semibold border-l-2 border-[#F2D16B]'
+                          : 'text-gray-600 hover:text-[#1a1a2e] hover:bg-gray-50'
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
                 );
               })}
-              <div className="pt-2 pb-1">
+              <motion.div
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: navLinks.length * 0.05, duration: 0.18 }}
+                className="pt-2 pb-1"
+              >
                 <Link
                   href="/contact"
                   onClick={() => setMobileOpen(false)}
@@ -143,7 +183,7 @@ export default function Header() {
                 >
                   Get in Touch
                 </Link>
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         )}
